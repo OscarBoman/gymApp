@@ -1,12 +1,10 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-type Props = {
-  addExercise: () => void;
-};
 
-export default function NewExercise({ addExercise }: Props) {
+
+export default function NewExercise() {
   return (
-    <Pressable style={styles.container} onPressIn={addExercise}>
+    <Pressable style={styles.container}>
       <Text style={styles.bread}>Lägg till övning</Text>
     </Pressable>
   );

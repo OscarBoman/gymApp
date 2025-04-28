@@ -6,7 +6,7 @@ const NextWorkOut = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Nästa Pass</Text>
-      <Pressable onPressIn={() => router.navigate('/workout-page')} >
+      <Pressable onPressIn={() => router.navigate('/logged-in/workout-page')} >
       <View style={styles.card}>
         <View style={styles.imgContainer}>
           <Image

@@ -17,12 +17,11 @@ import React, { useState, useRef } from "react";
 type ExerciseProps = {
   name: string;
   id:number; 
-  deleteExercise:(id:number) => void; 
+  deleteExercise:(exerciseId:string) => void; 
 };
 
 export default function Exersicse(props: ExerciseProps) {
     const [cards, setCards] = useState([1,2,3]);
-    
     const addCard = () => {
         const cardId = cards.length + 1; 
         setCards((prev) => [...prev, cardId]); 
@@ -38,7 +37,7 @@ export default function Exersicse(props: ExerciseProps) {
     <View style={containerStyles.container}>
       <View style={containerStyles.headerContainer}>
         <Text style={containerStyles.headerText}>{props.name}{props.id}</Text>
-        <Pressable onPressIn={() => props.deleteExercise(props.id)}>
+        <Pressable onPressIn={() => props.deleteExercise(props.name)}>
           <Image
             style={containerStyles.deleteImg}
             source={require("../../assets/images/bin.png")}

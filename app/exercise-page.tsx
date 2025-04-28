@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import TestView from '../app/Components/exersice-view-test'; 
+import TestView from './Components/choose-exercise'; 
+
 
 export default function App(){
+
     return(
         <View>
-            <TestView/>
+            <TestView />
         </View>
     )
 
