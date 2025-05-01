@@ -14,7 +14,7 @@ export default function CountDown (props:TimerProps) {
     const interval = useRef<NodeJS.Timeout | null>(null);
     
     useEffect (() => {
-        if(props.pressed){
+        if(props.pressed || started ){
             interval.current = setInterval (() => {
                 setSeconds(prev => prev - 1); 
             },1000);
@@ -28,7 +28,7 @@ export default function CountDown (props:TimerProps) {
         return () => {
             if (interval.current) clearInterval(interval.current);
           };
-    },[props.pressed]); 
+    },[props.pressed,started]); 
 
        
 
@@ -65,6 +65,7 @@ export default function CountDown (props:TimerProps) {
 
       const handleStart = () => {
         isStarted(true)
+        props.isPressed(true)
         console.log('pressed')
       }; 
       const handlePause = () => {

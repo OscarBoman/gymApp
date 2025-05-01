@@ -1,14 +1,31 @@
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import Timer from '../Components/timer-compponent'; 
 
-export default function TopExerciseLayer () {
+type PropsDefenition = {
+    
+    isExitButtonPressed: React.Dispatch<React.SetStateAction<boolean>>;
+    exitButtonPressed:boolean;
+    isFinishButtonPressed: React.Dispatch<React.SetStateAction<boolean>>;
+    finishButtonPressed:boolean;
+}; 
+
+export default function TopExerciseLayer (props:PropsDefenition) {
+
+    const handlePress = () => {
+       props.isExitButtonPressed(true);
+    };
+    const handlePress2 = () => {
+        props.isFinishButtonPressed(true);
+        console.log('pressed')
+     };
+        
     return(
         <View style = {styles.container}>
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={() => handlePress()}>
                 <Text style = {styles.bread}>X</Text>
             </Pressable>
             <Timer/>
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={() => handlePress2() }>
                 <Image  style={styles.img}
                source={require("../../assets/images/check (1).png")} />
             </Pressable>
