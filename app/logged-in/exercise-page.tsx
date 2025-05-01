@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import TestView from './Components/choose-exercise'; 
+import TestView from '../Components/choose-exercise'; 
 
 
 export default function App(){

@@ -21,7 +21,7 @@ export default function TestView() {
         <Pressable
           key={bodyPart}
           style={styles.innerContainer}
-          onPressIn={() => {
+          onPress={() => {
             setDropdownVisible(!isDropdownVisible);
             setSelectedValue(bodyPart);
           }}

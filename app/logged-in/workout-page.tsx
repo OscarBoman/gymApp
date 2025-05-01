@@ -5,12 +5,15 @@ import{useState, useEffect} from 'react';
 import { useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+import TopExerciseLayer from '../Components/top-layer-component'; 
+import CountDown from "../Components/count-down-component";
 
 export default function App() {
   const { chosenExercise } = useLocalSearchParams() as { chosenExercise: string };
   const [exersice, setExercise] = useState<string[]>([]); 
   const [loading, setLoading] = useState<boolean>(true);
   const [created, isCreated] = useState<boolean>(false);
+  const [pressed, isPressed] = useState(false); 
   const router = useRouter(); 
 
     
@@ -76,18 +79,22 @@ useEffect(() => {
           style={styles.bigContainer}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-    <GestureHandlerRootView >
+    <GestureHandlerRootView>
+        <TopExerciseLayer/>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.innerContainer}>
             {exersice.map((exerciseName,i) => (
-                <Exersicse name={exerciseName}key={i} id={i} deleteExercise={deleteExercise}/>
+                <Exersicse name={exerciseName} key={i} id={i} deleteExercise={deleteExercise} pressed={pressed} isPressed={isPressed}/>
             ))}
-         <Pressable style={styles.buttonContainer} onPressIn={() => router.navigate('/exercise-page')}>
+         <Pressable style={styles.buttonContainer} onPressIn={() => router.navigate('/logged-in/exercise-page')}>
               <Text style={styles.bread}>Lägg till övning 2</Text>
             </Pressable>
         </View>
-      
       </ScrollView>
+      <View style={styles.fixedBottom}>
+      <CountDown pressed={pressed} isPressed={isPressed}/>
+      </View>
+       
     </GestureHandlerRootView>
     </KeyboardAvoidingView>
   );
@@ -99,13 +106,14 @@ const styles = StyleSheet.create({
       backgroundColor: "#232A54",
   },
   container: {
-    marginTop: 100,
     marginBottom:50, 
+    
   },
   innerContainer:{
     alignItems: "center",
     justifyContent: "center",
     gap:5,
+    position:'relative',
 
   },
   buttonContainer: {
@@ -115,10 +123,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
+    marginBottom:100,
   },
   bread: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 25,
+  },
+  fixedBottom: {
+    position: "absolute",
+    bottom: 10, 
+    left: 0,
+    right: 0,
+    alignItems: "center",
   },
 });

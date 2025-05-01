@@ -10,7 +10,8 @@ import {
   ScrollView,
 } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import styles from "../styles";
 
 
 
@@ -18,6 +19,8 @@ type ExerciseProps = {
   name: string;
   id:number; 
   deleteExercise:(exerciseId:string) => void; 
+  isPressed: React.Dispatch<React.SetStateAction<boolean>>;
+  pressed:boolean; 
 };
 
 export default function Exersicse(props: ExerciseProps) {
@@ -51,7 +54,7 @@ export default function Exersicse(props: ExerciseProps) {
       </Pressable>
       <View style={containerStyles.exerciseContainer}>
         {cards.map((id) => (
-            <ExerciseCard key={id} id={id} removeCard={removeCard}/>
+            <ExerciseCard key={id} id={id} removeCard={removeCard} pressed={props.pressed} isPressed={props.isPressed}/>
         ))}
       </View>
 
@@ -65,13 +68,26 @@ export default function Exersicse(props: ExerciseProps) {
 type ExerciseCardProps = {
     id:number;
     removeCard:(id: number) => void; 
+    isPressed: React.Dispatch<React.SetStateAction<boolean>>;
+    pressed:boolean;
 }; 
 
-const ExerciseCard = ({ id ,removeCard}: ExerciseCardProps) => {
+const ExerciseCard = (props: ExerciseCardProps) => {
+
+  const [pressed2,setPressed2] = useState(false); 
+
+  function handleKlick () {
+    
+    !props.pressed ? props.isPressed(true) : props.isPressed(false); 
+    !pressed2 ? setPressed2(true): setPressed2(false); 
+    
+  }
+
+  
 
   const renderRightActions = () => {
     return (
-      <Pressable onPressIn={() => removeCard(id)}>
+      <Pressable onPressIn={() => props.removeCard(props.id)}>
         <View style={cardStyles.deleteImgContainer}>
           <Image
             style={containerStyles.deleteImg}
@@ -84,9 +100,9 @@ const ExerciseCard = ({ id ,removeCard}: ExerciseCardProps) => {
 
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <View style={cardStyles.cardContainer}>
-      <Text style={cardStyles.idText}>{id}</Text>
-        <Pressable>
+      <View style={pressed2 ? cardStyles.pressedCardContainer : cardStyles.cardContainer }>
+      <Text style={cardStyles.idText}>{props.id}</Text>
+        <Pressable onPress={() => handleKlick()}>
           <View style={cardStyles.cardImgContainer}>
             <Image
               style={cardStyles.cardImg}
@@ -179,6 +195,16 @@ const cardStyles = StyleSheet.create({
     alignItems: "center",
     height: 75,
     backgroundColor: "#1a1d2c",
+    position: "relative",
+    borderRadius: 5,
+  },
+  pressedCardContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-around",
+    alignItems: "center",
+    height: 75,
+    backgroundColor: "#194F0F",
     position: "relative",
     borderRadius: 5,
   },
