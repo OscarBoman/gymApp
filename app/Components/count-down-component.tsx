@@ -11,7 +11,7 @@ export default function CountDown (props:TimerProps) {
     const [minutes, setMinutes] = useState(2);
     const [started, isStarted] = useState(false); 
     const [reset, isReseted] = useState(false)
-    const interval = useRef<NodeJS.Timeout | null>(null);
+    const interval = useRef<number | null>(null);
     
     useEffect (() => {
         if(props.pressed || started ){
@@ -37,7 +37,6 @@ export default function CountDown (props:TimerProps) {
         if (minutes === 0 && seconds < 0) {
           if (interval.current) {
             clearInterval(interval.current);
-            console.log("Timer stopped");
             setSeconds(0);
             setMinutes(2); 
           }
@@ -66,7 +65,7 @@ export default function CountDown (props:TimerProps) {
       const handleStart = () => {
         isStarted(true)
         props.isPressed(true)
-        console.log('pressed')
+        
       }; 
       const handlePause = () => {
         isStarted(false)
@@ -127,13 +126,17 @@ const styles = StyleSheet.create({
         fontWeight:'bold', 
     },
     btnContainer: {
-        backgroundColor: 'rgba(255,255,255,0.08)',
+        backgroundColor: "rgba(17, 17, 41,1)",
         justifyContent:'center',
         alignItems:'center',
         height: 50,
         width: 50,
         borderRadius:'50%',
-        borderColor: 'rgba(255,255,255,0.1)',
-        borderWidth:1,
+        borderColor: "rgba(255, 255, 255, 0.26)",
+        borderWidth: 1,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
     },
 })

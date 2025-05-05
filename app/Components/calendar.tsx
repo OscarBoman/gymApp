@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Image } from "react-native";
 import BottomStats from '../Components/bottom-stats'
 const Calendar = () => {
 
@@ -45,12 +45,14 @@ const Calendar = () => {
   return (
     <View style={styles.container}>
       <View style = {styles.headerContainer}>
-        <Pressable onPressIn={changeToPrevMont}>
-          <Text style={styles.otherMonth}>{'<'}</Text>
+        <Pressable style = {styles.otherMonth} onPressIn={changeToPrevMont}>
+         <Image  style={styles.img}
+                        source={require("../../assets/images/next (3).png")} />
         </Pressable>
         <Text style={styles.header}>{months[currentMonth]}</Text>
-        <Pressable onPressIn={changeToNextMont}>
-          <Text style={styles.otherMonth}>{'>'}</Text>
+        <Pressable style = {styles.otherMonth} onPressIn={changeToNextMont}>
+        <Image  style={styles.img1}
+                        source={require("../../assets/images/next (3).png")} />
         </Pressable>
       </View>
       <View style={styles.calendarContainer}>
@@ -94,13 +96,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   otherMonth: {
-    color: "#fff",
     backgroundColor: 'rgba(255,255,255,0.17)',
-    fontWeight: "bold",
-    fontSize: 20,
-    paddingHorizontal: 15,
-    paddingVertical: 5,
+ 
     borderRadius: 5,
+    width: 45,
+    alignItems:'center',
+    borderColor: "rgba(255, 255, 255, 0.26)",
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
   },
   day: {
     width: "14.28%",
@@ -122,6 +128,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: 5,
     marginTop: 7,
+  },
+  img:{
+    height: 35,
+    width: 35,
+    transform: 'rotate(180deg)',
+  },
+  img1: {
+    height: 35,
+    width: 35,
   },
 });
 

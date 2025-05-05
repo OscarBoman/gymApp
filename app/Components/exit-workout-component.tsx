@@ -1,22 +1,32 @@
-import { View, Text, StyleSheet, Pressable, Modal } from "react-native";
+import { View, Text, StyleSheet, Pressable} from "react-native";
+import { useRouter } from "expo-router";
+
 
 type PropsDefenition = {
     
     isExitButtonPressed: React.Dispatch<React.SetStateAction<boolean>>;
     exitButtonPressed:boolean;
+    isExitExercisePressed: React.Dispatch<React.SetStateAction<boolean>>;
+    exitExercisePressed:boolean;
 }; 
 
 export default function ExitWorkout (props:PropsDefenition) {
+  const router = useRouter(); 
+  const handlePress = () => {
+    props.isExitExercisePressed(true);
+    props.isExitButtonPressed(false);
+    router.replace('/logged-in/home');
+  };
     return(
          
                 <View style={styles.modalContent}>
                     <Text style={styles.header}>Är du säker på att du vill avbryta?</Text>
                     <Text style={styles.bread}>Alla ändringar kommer att gå förlorade</Text>
                     <View style={styles.buttonContainer}>
-                    <Pressable style={styles.button}>
+                    <Pressable style={styles.button} onPress={() => handlePress()}>
                         <Text style={styles.header}>Ja</Text>
                     </Pressable>
-                    <Pressable style={styles.button} onPress={() => props.isExitButtonPressed(false)}>
+                    <Pressable style={styles.button} onPress={() => props.isExitButtonPressed(false) }>
                         <Text style={styles.header}>Nej</Text>
                     </Pressable>
                     </View>

@@ -4,6 +4,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 export default function RootLayout() {
+
+  
   return (
     <Tabs
       screenOptions={{
@@ -19,6 +21,7 @@ export default function RootLayout() {
       <Tabs.Screen name = 'settings' options={{tabBarLabel:'Inställningar',  tabBarIcon: () => <FontAwesome size={28} name="cog" color={'white'}/>}}/>
       <Tabs.Screen name = 'workout-page' options = {{href:null}}/>
       <Tabs.Screen name = 'exercise-page' options = {{href:null}}/>
+      <Tabs.Screen name = 'counting-page' options = {{href:null}}/>
     </Tabs>
   );
 }

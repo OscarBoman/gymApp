@@ -7,6 +7,8 @@ type PropsDefenition = {
     exitButtonPressed:boolean;
     isFinishButtonPressed: React.Dispatch<React.SetStateAction<boolean>>;
     finishButtonPressed:boolean;
+    isExitExercisePressed: React.Dispatch<React.SetStateAction<boolean>>;
+    exitExercisePressed:boolean;
 }; 
 
 export default function TopExerciseLayer (props:PropsDefenition) {
@@ -16,7 +18,7 @@ export default function TopExerciseLayer (props:PropsDefenition) {
     };
     const handlePress2 = () => {
         props.isFinishButtonPressed(true);
-        console.log('pressed')
+        
      };
         
     return(
@@ -24,7 +26,8 @@ export default function TopExerciseLayer (props:PropsDefenition) {
             <Pressable style={styles.button} onPress={() => handlePress()}>
                 <Text style = {styles.bread}>X</Text>
             </Pressable>
-            <Timer/>
+            <Timer   exitExercisePressed={props.exitExercisePressed}
+                isExitExercisePressed={props.isExitExercisePressed}/>
             <Pressable style={styles.button} onPress={() => handlePress2() }>
                 <Image  style={styles.img}
                source={require("../../assets/images/check (1).png")} />
@@ -37,7 +40,7 @@ export default function TopExerciseLayer (props:PropsDefenition) {
 const styles = StyleSheet.create({
     container:{
         flexDirection:'row', 
-        backgroundColor: "#232A54",
+        backgroundColor:'rgba(255, 255, 255, 0)',
         height: 100,
         justifyContent:'space-around', 
         position:'relative',
@@ -48,15 +51,19 @@ const styles = StyleSheet.create({
         fontWeight:'bold', 
     },
     button:{
-        backgroundColor: 'rgba(255,255,255,0.08)',
+        backgroundColor: "rgba(17, 17, 41,1)",
         justifyContent:'center',
         alignItems:'center',
         marginTop: 50,
         height: 40,
         width: 40,
         borderRadius:'50%',
-        borderColor: 'rgba(255,255,255,0.1)',
-        borderWidth:1,
+        borderColor: "rgba(255, 255, 255, 0.26)",
+        borderWidth: 1,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
     },
     img: {
         height: 30,

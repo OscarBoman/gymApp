@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Modal,
+  Image,
 } from "react-native";
 import Exersicse from "../Components/exercise-component";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -29,6 +30,7 @@ export default function App() {
   const [pressed, isPressed] = useState(false);
   const [exitButtonPressed, isExitButtonPressed] = useState(false);
   const [finishButtonPressed, isFinishButtonPressed] = useState(false);
+  const [exitExercisePressed, isExitExercisePressed] = useState(false); 
   const router = useRouter();
 
   useEffect(() => {
@@ -68,12 +70,31 @@ export default function App() {
     saveExercise();
   }, [created, exersice]);
 
+  useEffect(() => {
+    const removeWorkout = async () => {
+      if(exitExercisePressed){
+        try{
+          await AsyncStorage.clear();
+          isExitExercisePressed(false);
+          setExercise([]); // tömmer listan i UI också
+        }
+        catch (e){
+          console.error("Failed to remove workout:", e);
+        }
+      };
+    }
+    removeWorkout(); 
+  },[exitExercisePressed]); 
+
+
+   
+
+
   const addExercise = () => {
     const exerciseId = chosenExercise;
     setExercise((prev) => [...prev, exerciseId]);
   };
   const deleteExercise = (exerciseId: string) => {
-    console.log("pressed");
     setExercise(exersice.filter((exersiceId) => exersiceId !== exerciseId));
   };
 
@@ -88,6 +109,8 @@ export default function App() {
           isExitButtonPressed={isExitButtonPressed}
           finishButtonPressed={finishButtonPressed}
           isFinishButtonPressed={isFinishButtonPressed}
+          exitExercisePressed={exitExercisePressed}
+          isExitExercisePressed={isExitExercisePressed}
         />
         <ScrollView contentContainerStyle={styles.container}>
           <Modal visible={exitButtonPressed} transparent>
@@ -95,6 +118,8 @@ export default function App() {
               <ExitWorkout
                 exitButtonPressed={exitButtonPressed}
                 isExitButtonPressed={isExitButtonPressed}
+                exitExercisePressed={exitExercisePressed}
+                isExitExercisePressed={isExitExercisePressed}
               />
             </View>
           </Modal>
@@ -123,6 +148,7 @@ export default function App() {
               style={styles.buttonContainer}
               onPressIn={() => router.navigate("/logged-in/exercise-page")}
             >
+              <Image style={styles.img} source={require('../../assets/images/add (2).png')}/>
               <Text style={styles.bread}>Lägg till övning 2</Text>
             </Pressable>
           </View>
@@ -142,6 +168,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginBottom: 50,
+    marginTop: 10,
   },
   innerContainer: {
     alignItems: "center",
@@ -150,18 +177,30 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   buttonContainer: {
-    width: "95%",
-    height: 70,
-    backgroundColor: "rgba(255,255,255,0.1)",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 5,
-    marginBottom: 100,
+    padding: 5,
+    backgroundColor: "rgba(17, 17, 41,1)",
+    borderRadius: 20,
+    width: "96%",
+    height:90,
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    position:'relative',
+    marginBottom:100,
+    
+    borderColor: "rgba(255, 255, 255, 0.26)",
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
   },
   bread: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 25,
+    fontSize: 20,
+    position:'absolute',
+    left: 140,
   },
   fixedBottom: {
     position: "absolute",
@@ -175,5 +214,12 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "center",
     alignItems: "center",
+  },
+  
+  img: {
+    height: 35,
+    width: 35,
+    position:'absolute',
+    left:80,
   },
 });

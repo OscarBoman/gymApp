@@ -12,6 +12,7 @@ import {
 import { Swipeable } from "react-native-gesture-handler";
 import React, { useState, useRef, useEffect } from "react";
 import styles from "../styles";
+import { router } from "expo-router";
 
 
 
@@ -40,7 +41,7 @@ export default function Exersicse(props: ExerciseProps) {
     <View style={containerStyles.container}>
       <View style={containerStyles.headerContainer}>
         <Text style={containerStyles.headerText}>{props.name}{props.id}</Text>
-        <Pressable onPressIn={() => props.deleteExercise(props.name)}>
+        <Pressable style={containerStyles.deletExerciseContainer} onPressIn={() => props.deleteExercise(props.name)}>
           <Image
             style={containerStyles.deleteImg}
             source={require("../../assets/images/bin.png")}
@@ -81,6 +82,10 @@ const ExerciseCard = (props: ExerciseCardProps) => {
     !props.pressed ? props.isPressed(true) : props.isPressed(false); 
     !pressed2 ? setPressed2(true): setPressed2(false); 
     
+  }
+  
+  function handleCountingRoute () {
+    router.push('/logged-in/counting-page'); 
   }
 
   
@@ -135,7 +140,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
             maxLength={3}
           ></TextInput>
         </View>
-        <Pressable>
+        <Pressable onPress={() => handleCountingRoute()}>
           <View style={cardStyles.cardImgContainer}>
             <Image
               style={cardStyles.cardImg}
@@ -163,8 +168,9 @@ const containerStyles = StyleSheet.create({
   },
   headerContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
     padding: 10,
+    alignItems:'center',
+    position:'relative',
   },
   headerText: {
     color: "#fff",
@@ -172,8 +178,8 @@ const containerStyles = StyleSheet.create({
     fontSize: 28,
   },
   deleteImg: {
-    height: 30,
-    width: 30,
+    height: 25,
+    width: 25,
   },
   bread: {
     color: "#fff",
@@ -184,6 +190,19 @@ const containerStyles = StyleSheet.create({
   exerciseContainer: {
     alignItems: "center",
     gap: 5,
+  },
+  deletExerciseContainer:{
+    backgroundColor: "rgba(17, 17, 41,1)",
+    padding: 7,
+    borderRadius: 5,
+    borderColor: "rgba(255,255,255,0.1)",
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    position:'absolute',
+    right: 20,
   },
 });
 
@@ -209,7 +228,7 @@ const cardStyles = StyleSheet.create({
     borderRadius: 5,
   },
   cardImgContainer: {
-    backgroundColor: "rgba(255,255,255,0.17)",
+    backgroundColor: "rgb(66, 66, 66)",
     padding: 7,
     borderRadius: 5,
     borderColor: "rgba(255,255,255,0.1)",

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable, Image } from "react-native";
 
 export default function Header(){
-    const weekDay = ['Söng','Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör']; 
+    const weekDay = ['Sön','Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör']; 
     const months = [
         "Januari",
         "Februari",

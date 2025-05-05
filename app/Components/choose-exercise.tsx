@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, Modal } from "react-native";
+import { View, Text, StyleSheet, Pressable, Modal,Image } from "react-native";
 import { useState } from "react";
 import { useRouter } from 'expo-router';
 
@@ -26,6 +26,7 @@ export default function TestView() {
             setSelectedValue(bodyPart);
           }}
         >
+          <Image style={styles.img} source={require('../../assets/images/add (2).png')}/>
           <Text style={styles.bread}>{bodyPart}</Text>
         </Pressable>
       ))}
@@ -51,6 +52,7 @@ const ViewbodyPart = ({ selectedValue, setDropdownVisible}: { selectedValue: str
           setDropdownVisible(false);
           
         }}>
+            
           <Text style={styles.optionText}>{chosenExercise}</Text>
         </Pressable>
       ))}
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#232A54",
     width: "95%",
-    gap: 5,
+    gap: 10,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 100,
@@ -73,17 +75,29 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   innerContainer: {
-    backgroundColor: "#1a1d2c",
+    backgroundColor: "rgba(17, 17, 41,1)",
     width: "95%",
     height: 70,
+    borderRadius:20,
     justifyContent: "center",
-    borderRadius: 5,
+    alignItems:'center',
+    flexDirection:'row',
+    position:'relative',
+    
+    borderColor: "rgba(255, 255, 255, 0.26)",
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
   },
   bread: {
     color: "#fff",
-    padding: 10,
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 22,
+    position:'absolute',
+    left: 170,
+    
   },
   modalBackground: {
     flex: 1,
@@ -93,26 +107,48 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: "80%",
-    backgroundColor: "white",
+    backgroundColor: "#232A54",
     borderRadius: 10,
     padding: 20,
   },
   option: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    padding: 5,
   },
   optionText: {
-    fontSize: 16,
+    fontSize: 18,
+    color:'#fff',
+    backgroundColor: "rgba(17, 17, 41,1)",
+    padding:15,
+    borderRadius:10,
+
+    borderColor: "rgba(255, 255, 255, 0.26)",
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
   },
   closeButton: {
     marginTop: 10,
-    padding: 10,
-    backgroundColor: "#e74c3c",
+    padding: 15,
+    backgroundColor: "rgba(17, 17, 41,1)",
     borderRadius: 5,
+
+    borderColor: "rgba(255, 255, 255, 0.26)",
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
   },
   closeText: {
     color: "white",
     textAlign: "center",
+  },
+  img: {
+    height: 35,
+    width: 35,
+    position:'absolute',
+    left:100,
   },
 });

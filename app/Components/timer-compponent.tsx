@@ -1,17 +1,39 @@
 import { Text, StyleSheet } from "react-native";
-import  {useState, useEffect} from 'react'; 
+import  {useState, useEffect,useRef} from 'react'; 
 
-export default function Timer() {
+type PropsDef = {
+    isExitExercisePressed: React.Dispatch<React.SetStateAction<boolean>>;
+    exitExercisePressed:boolean;
+}
+
+export default function Timer(props:PropsDef) {
     const [seconds, setSeconds] = useState(0); 
     const [minutes, setMinutes] = useState(0); 
     const [hours, setHours] = useState(0); 
+    const interval = useRef<number | null>(null);
+    const [startTimer, setStartTimer] = useState(true);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setSeconds(prevSeconds => prevSeconds + 1)       
-        },1000); 
-        return () => clearInterval(interval)
+            interval.current = setInterval(() => {
+                setSeconds(prevSeconds => prevSeconds + 1)       
+            },1000); 
+        
+        return () => {
+            if (interval.current) clearInterval(interval.current);
+          };
+       
     }, []);  
+
+    useEffect(() => {
+        console.log(props.exitExercisePressed)
+        if(props.exitExercisePressed){
+            if(interval.current) clearInterval(interval.current);
+            setSeconds(0);
+            setMinutes(0);
+        }
+    },[props.exitExercisePressed])
+          
+      
 
     useEffect(() => {
         if(seconds === 60){
@@ -48,7 +70,7 @@ export default function Timer() {
 const styles = StyleSheet.create({
     text:{
         color:'#fff',
-        marginTop:60,
+        marginTop: 60,
         fontSize:18,
         fontWeight:'bold',
     },
