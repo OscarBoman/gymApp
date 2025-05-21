@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  
 } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 import React, { useState, useRef, useEffect } from "react";
@@ -22,10 +23,14 @@ type ExerciseProps = {
   deleteExercise:(exerciseId:string) => void; 
   isPressed: React.Dispatch<React.SetStateAction<boolean>>;
   pressed:boolean; 
+  countedNumber:string; 
+  setCountedNumber: (countedNumber:string ) => void; 
 };
 
 export default function Exersicse(props: ExerciseProps) {
     const [cards, setCards] = useState([1,2,3]);
+    
+
     const addCard = () => {
         const cardId = cards.length + 1; 
         setCards((prev) => [...prev, cardId]); 
@@ -40,8 +45,8 @@ export default function Exersicse(props: ExerciseProps) {
   return (
     <View style={containerStyles.container}>
       <View style={containerStyles.headerContainer}>
-        <Text style={containerStyles.headerText}>{props.name}{props.id}</Text>
-        <Pressable style={containerStyles.deletExerciseContainer} onPressIn={() => props.deleteExercise(props.name)}>
+        <Text style={containerStyles.headerText}>{props.name}</Text>
+        <Pressable style={containerStyles.deletExerciseContainer} onPress={() => props.deleteExercise(props.name)}>
           <Image
             style={containerStyles.deleteImg}
             source={require("../../assets/images/bin.png")}
@@ -55,11 +60,11 @@ export default function Exersicse(props: ExerciseProps) {
       </Pressable>
       <View style={containerStyles.exerciseContainer}>
         {cards.map((id) => (
-            <ExerciseCard key={id} id={id} removeCard={removeCard} pressed={props.pressed} isPressed={props.isPressed}/>
+            <ExerciseCard key={id} id={id} name={props.name} removeCard={removeCard} pressed={props.pressed} isPressed={props.isPressed} countedNumber = {props.countedNumber} setCountedNumber={props.setCountedNumber} />
         ))}
       </View>
 
-      <Pressable onPressIn={() => addCard()}>
+      <Pressable onPress={() => addCard()}>
         <Text style={containerStyles.bread}>+ Set</Text>
       </Pressable>
     </View>
@@ -71,10 +76,14 @@ type ExerciseCardProps = {
     removeCard:(id: number) => void; 
     isPressed: React.Dispatch<React.SetStateAction<boolean>>;
     pressed:boolean;
+    name: string;
+    countedNumber: string;
+    setCountedNumber: (countedNumber: string) => void;
 }; 
 
 const ExerciseCard = (props: ExerciseCardProps) => {
-
+ 
+  const [pressedId, setPressedId] = useState(0);
   const [pressed2,setPressed2] = useState(false); 
 
   function handleKlick () {
@@ -85,14 +94,34 @@ const ExerciseCard = (props: ExerciseCardProps) => {
   }
   
   function handleCountingRoute () {
-    router.push('/logged-in/counting-page'); 
+    setPressedId(props.id); 
+    console.log(pressedId);
+    router.push('/logged-in/tab_1/counting-page'); 
   }
+
+  const workoutImages: { [key: string]: any } = {
+    Bicepscurl: require('../../assets/images/workout-images/Bicepscurl.png'),
+    'Curl med EZbar': require('../../assets/images/workout-images/Curl med EZbar.png'),
+    'Uppåtlutad hantelpress': require('../../assets/images/workout-images/Uppåtlutad hantelpress.png'),
+    Knäböj: require('../../assets/images/workout-images/Knäböj.png'),
+    Benpress: require('../../assets/images/workout-images/Benpress.png'),
+    Bänkpress: require('../../assets/images/workout-images/Bänkpress.png'),
+    'Maskin flyes': require('../../assets/images/workout-images/Maskin flyes.png'),
+    Marklyft: require('../../assets/images/workout-images/Marklyft.png'),
+    Latsdrag: require('../../assets/images/workout-images/Latsdrag.png'),
+    Kabelrodd: require('../../assets/images/workout-images/Kabelrodd.png'),
+    Axelpress: require('../../assets/images/workout-images/Axelpress.png'),
+    'Omvända hantelflyes': require('../../assets/images/workout-images/Omvända hantelflyes.png'),
+    'Triceps pushdown': require('../../assets/images/workout-images/Triceps pushdown.png'),
+    Planka: require('../../assets/images/workout-images/Planka.png'),
+    'Sit-ups': require('../../assets/images/workout-images/Sit-ups.png'),
+  };
 
   
 
   const renderRightActions = () => {
     return (
-      <Pressable onPressIn={() => props.removeCard(props.id)}>
+      <Pressable onPress={() => props.removeCard(props.id)}>
         <View style={cardStyles.deleteImgContainer}>
           <Image
             style={containerStyles.deleteImg}
@@ -106,7 +135,7 @@ const ExerciseCard = (props: ExerciseCardProps) => {
   return (
     <Swipeable renderRightActions={renderRightActions}>
       <View style={pressed2 ? cardStyles.pressedCardContainer : cardStyles.cardContainer }>
-      <Text style={cardStyles.idText}>{props.id}</Text>
+      
         <Pressable onPress={() => handleKlick()}>
           <View style={cardStyles.cardImgContainer}>
             <Image
@@ -138,14 +167,17 @@ const ExerciseCard = (props: ExerciseCardProps) => {
             keyboardType="numeric"
             returnKeyType="done"
             maxLength={3}
+           
+            
           ></TextInput>
         </View>
         <Pressable onPress={() => handleCountingRoute()}>
           <View style={cardStyles.cardImgContainer}>
             <Image
               style={cardStyles.cardImg}
-              source={require("../../assets/images/workout.png")}
+              source={workoutImages[props.name] ? workoutImages[props.name] : require('../../assets/images/weightlifting.png')}
             />
+            
           </View>
         </Pressable>
       </View>

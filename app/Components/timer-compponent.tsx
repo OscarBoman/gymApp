@@ -24,14 +24,6 @@ export default function Timer(props:PropsDef) {
        
     }, []);  
 
-    useEffect(() => {
-        console.log(props.exitExercisePressed)
-        if(props.exitExercisePressed){
-            if(interval.current) clearInterval(interval.current);
-            setSeconds(0);
-            setMinutes(0);
-        }
-    },[props.exitExercisePressed])
           
       
 

@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 const NextWorkOut = () => {
   const router = useRouter();
   return (
-    <Pressable style = {styles.container} onPressIn={() => router.navigate("/logged-in/workout-page")}>
+    <Pressable style = {styles.container} onPress={() => router.replace("/logged-in/tab_1/workout-page")}>
       <Image style={styles.img} source={require('../../assets/images/play (4).png')}/>
       <Text style={styles.header}>Starta nytt pass</Text>
     </Pressable>

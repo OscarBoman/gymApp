@@ -4,10 +4,10 @@ import { useRouter } from 'expo-router';
 
 const övningar: { [key: string]: string[] } = {
   Ben: ["Knäböj", "Benpress", "Benspark"],
-  Bröst: ["Bänkpress", "Hantelpress", "Flyes"],
-  Rygg: ["Marklyft", "Latsdrag", "Skivstångsrodd"],
-  Axlar: ["Militärpress", "Skivstångsrodd", "Omvända flyes"],
-  Armar: ["Bicepscurl", "Triceps pushdown", "Chins"],
+  Bröst: ["Bänkpress", "Uppåtlutad hantelpress", "Maskin flyes"],
+  Rygg: ["Marklyft", "Latsdrag", "Kabelrodd"],
+  Axlar: ["Axelpress", "Skivstångsrodd", "Omvända hantelflyes"],
+  Armar: ["Bicepscurl", "Triceps pushdown", "Curl med EZbar"],
   Mage: ["Planka", "Sit-ups", "Hängande benlyft"],
 };
 
@@ -48,7 +48,7 @@ const ViewbodyPart = ({ selectedValue, setDropdownVisible}: { selectedValue: str
     <View style={styles.modalContent}>
       {övningar[selectedValue].map((chosenExercise) => (
         <Pressable key={chosenExercise} style={styles.option} onPress= {() => { 
-          router.push(`/logged-in/workout-page?chosenExercise=${chosenExercise}`);
+          router.push(`/logged-in/tab_1/workout-page?chosenExercise=${chosenExercise}`);
           setDropdownVisible(false);
           
         }}>
@@ -56,7 +56,7 @@ const ViewbodyPart = ({ selectedValue, setDropdownVisible}: { selectedValue: str
           <Text style={styles.optionText}>{chosenExercise}</Text>
         </Pressable>
       ))}
-      <Pressable style={styles.closeButton} onPressIn={() =>  setDropdownVisible(false)}>
+      <Pressable style={styles.closeButton} onPress={() =>  setDropdownVisible(false)}>
         <Text style={styles.closeText}>Stäng</Text>
       </Pressable>
     </View>

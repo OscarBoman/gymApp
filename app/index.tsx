@@ -38,7 +38,7 @@ export default function Index() {
           <Pressable
             style={styles.pressableActive}
             onPressIn={() => {
-              router.replace("/logged-in/home");
+              router.replace("/logged-in/tab_1/home");
             }}
           >
             <Text style={styles.buttonText}>Nu åker vi</Text>

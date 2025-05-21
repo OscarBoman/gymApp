@@ -1,9 +1,9 @@
 import { Text, View, StyleSheet,TextInput, KeyboardAvoidingView, Platform, Pressable } from "react-native";
 import { StatusBar } from 'expo-status-bar';
-import Calendar from '../Components/calendar';
-import Header from '../Components/header-home-page';
-import WeekleyWorkouts from "../Components/weekley-workouts";
-import NextWorkOut from "../Components/next-workout";
+import Calendar from '../../Components/calendar';
+import Header from '../../Components/header-home-page';
+import WeekleyWorkouts from "../../Components/weekley-workouts";
+import NextWorkOut from "../../Components/next-workout";
 
 
 

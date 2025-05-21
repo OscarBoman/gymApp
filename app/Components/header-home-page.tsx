@@ -25,10 +25,10 @@ export default function Header(){
             <Text style={styles.dateText}>{currentDay} {currentDate} {currentMonth}</Text>
             <View style= {styles.innerContainer}>
                 
-                <Image source={require('../../assets/images/cbum.jpg')} style = {styles.profileImg}></Image>
+                <Image source={require('../../assets/images/profile.jpg')} style = {styles.profileImg}></Image>
                
                 
-                <Text style= {styles.greetingText}>Hej Oscar! 🦍</Text>
+                <Text style= {styles.greetingText}>Hej Oscar! 👋</Text>
                 <View style={styles.settingsImgContainer}>
                 <Pressable>
                     <Image style = {styles.settingsImg} source={require('../../assets/images/settings (1).png')}></Image>

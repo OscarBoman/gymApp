@@ -1,22 +1,63 @@
 import { View, Text, StyleSheet, Pressable,Image } from "react-native";
 import { useRouter } from "expo-router";
+import {useState,useEffect,useRef} from 'react'
 
 export default function CountingComponent() {
     const router = useRouter(); 
+    const interval = useRef<number | null>(null);
+    const [repCount,setRepCount] = useState(0);
+    const testData = 0; 
 
 function handleGoBack() {
-    router.push('/logged-in/workout-page')
+    setRepCount(0);
+    
+    router.push('/logged-in/tab_1/workout-page')
+
+    fetch("http://192.168.50.3:3000/submit-rep", {
+      method: "POST",
+      body: JSON.stringify({
+        repCount:0
+      }),
+      headers: {
+        "Content-type": "application/json"
+      }
+    });
 }
+
+
+
+
+    const handleCounting = async () =>{
+      try{
+        const response = await fetch('http://192.168.50.3:3000/get-rep');
+        const data = await response.json(); 
+        setRepCount(data);
+        
+      }
+      catch(e){
+        console.log(e); 
+      }
+    }; 
+
+    function handleTestCounting () {
+      
+      const stringTestData = testData.toString(); 
+     
+      router.push(`/logged-in/tab_1/workout-page?stringTestData=${stringTestData}`);
+    }
+ 
+
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header} >Övning pågår</Text>
-      <Text style={styles.bread1}>Räknar antalet repetitioner</Text>
+      <Text style={ testData > 0 ? styles.none : styles.header} >Övning pågår</Text>
+      <Text style={ testData > 0 ? styles.none : styles.bread1}>Räknar antalet repetitioner</Text>
+      
       <View style={styles.innerContainer}>
         <Pressable style={styles.button} onPress={() => handleGoBack()}>
           <Text style={styles.bread}>X</Text>
         </Pressable>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={() => handleTestCounting()}>
           <Image
             style={styles.img}
             source={require("../../assets/images/check (1).png")}
@@ -72,5 +113,8 @@ const styles = StyleSheet.create({
         color:'#fff',
         fontSize: 18,
         fontWeight:'bold', 
+    },
+    none:{
+      display:'none', 
     },
 })

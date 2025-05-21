@@ -9,21 +9,26 @@ import {
   Modal,
   Image,
 } from "react-native";
-import Exersicse from "../Components/exercise-component";
+import Exersicse from "../../Components/exercise-component";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import TopExerciseLayer from "../Components/top-layer-component";
-import CountDown from "../Components/count-down-component";
-import ExitWorkout from "../Components/exit-workout-component";
-import FinishWorkout from "../Components/finish-workout-component";
+import TopExerciseLayer from "../../Components/top-layer-component";
+import CountDown from "../../Components/count-down-component";
+import ExitWorkout from "../../Components/exit-workout-component";
+import FinishWorkout from "../../Components/finish-workout-component";
 
 export default function App() {
   const { chosenExercise } = useLocalSearchParams() as {
     chosenExercise: string;
   };
+  const { stringTestData } = useLocalSearchParams() as {
+    stringTestData: string;
+  };
+  
+  const [countedNumber, setCountedNumber] = useState('');
   const [exersice, setExercise] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [created, isCreated] = useState(false);
@@ -31,6 +36,7 @@ export default function App() {
   const [exitButtonPressed, isExitButtonPressed] = useState(false);
   const [finishButtonPressed, isFinishButtonPressed] = useState(false);
   const [exitExercisePressed, isExitExercisePressed] = useState(false); 
+  const [repCount,setRepCount] = useState(0)
   const router = useRouter();
 
   useEffect(() => {
@@ -71,24 +77,8 @@ export default function App() {
   }, [created, exersice]);
 
   useEffect(() => {
-    const removeWorkout = async () => {
-      if(exitExercisePressed){
-        try{
-          await AsyncStorage.clear();
-          isExitExercisePressed(false);
-          setExercise([]); // tömmer listan i UI också
-        }
-        catch (e){
-          console.error("Failed to remove workout:", e);
-        }
-      };
-    }
-    removeWorkout(); 
-  },[exitExercisePressed]); 
-
-
-   
-
+    setCountedNumber(stringTestData); 
+  },[stringTestData]); 
 
   const addExercise = () => {
     const exerciseId = chosenExercise;
@@ -142,14 +132,16 @@ export default function App() {
                 deleteExercise={deleteExercise}
                 pressed={pressed}
                 isPressed={isPressed}
+                countedNumber = {countedNumber}
+                setCountedNumber={setCountedNumber}
               />
             ))}
             <Pressable
               style={styles.buttonContainer}
-              onPressIn={() => router.navigate("/logged-in/exercise-page")}
+              onPressIn={() => router.navigate("/logged-in/tab_1/exercise-page")}
             >
-              <Image style={styles.img} source={require('../../assets/images/add (2).png')}/>
-              <Text style={styles.bread}>Lägg till övning 2</Text>
+              <Image style={styles.img} source={require('../../../assets/images/add (2).png')}/>
+              <Text style={styles.bread}>Lägg till övning</Text>
             </Pressable>
           </View>
         </ScrollView>

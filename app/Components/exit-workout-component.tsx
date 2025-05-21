@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Pressable} from "react-native";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 type PropsDefenition = {
@@ -12,10 +13,14 @@ type PropsDefenition = {
 
 export default function ExitWorkout (props:PropsDefenition) {
   const router = useRouter(); 
-  const handlePress = () => {
+  const handlePress = async () => {
     props.isExitExercisePressed(true);
-    props.isExitButtonPressed(false);
-    router.replace('/logged-in/home');
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {
+      console.error(e);
+    }
+    router.replace('/logged-in/tab_1/home');
   };
     return(
          

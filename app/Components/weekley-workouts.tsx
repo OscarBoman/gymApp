@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Pressable, Image } from "react-native";
-import BottomStats from "./bottom-stats";
+import { View, Text, StyleSheet, Pressable, Image, ImageSourcePropType } from "react-native";
+import WeekleyStats from "./weekley-stats";
 
 export default function WeekleyWorkouts() {
   return (
@@ -9,10 +9,11 @@ export default function WeekleyWorkouts() {
         <WeekleyTrainingCard
           day="Måndag"
           moreInfo="Bicep, tricep, underarmar 00:51:28"
+          image={require('../../assets/images/weightlifting.png')}
         />
-        <WeekleyTrainingCard day="Onsdag" moreInfo="45km 00:56:54" />
-        <WeekleyTrainingCard day="Fredag" moreInfo="Rygg, bröst 00:48:56" />
-        <BottomStats />
+        <WeekleyTrainingCard  image={require('../../assets/images/sport.png')}  day="Onsdag" moreInfo="45km 00:56:54" />
+        <WeekleyTrainingCard  image={require('../../assets/images/weightlifting.png')}  day="Fredag" moreInfo="Rygg, bröst 00:48:56" />
+        <WeekleyStats />
       </View>
     </View>
   );
@@ -21,17 +22,19 @@ export default function WeekleyWorkouts() {
 const WeekleyTrainingCard = ({
   day,
   moreInfo,
+  image,
 }: {
   day: string;
   moreInfo: string;
+  image: ImageSourcePropType;
 }) => {
   return (
     <View style={styles.card}>
       <View style={styles.imgContainer}>
         <Image
           style={styles.img}
-          source={require("../../assets/images/weightlifting.png")}
-        ></Image>
+          source={image}        
+          ></Image>
       </View>
       <View>
         <Text style={styles.cardHeader}>{day}</Text>

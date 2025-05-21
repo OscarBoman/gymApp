@@ -17,11 +17,9 @@ export default function RootLayout() {
         },
       }}
     >
-      <Tabs.Screen  name = 'home' options={{tabBarLabel:'Hem', tabBarIcon: () => <FontAwesome size={28} name="home" color={'white'}/> }}/>
+      <Tabs.Screen  name = 'tab_1' options={{tabBarLabel:'Hem', tabBarIcon: () => <FontAwesome size={28} name="home" color={'white'}/> }}/>
       <Tabs.Screen name = 'settings' options={{tabBarLabel:'Inställningar',  tabBarIcon: () => <FontAwesome size={28} name="cog" color={'white'}/>}}/>
-      <Tabs.Screen name = 'workout-page' options = {{href:null}}/>
-      <Tabs.Screen name = 'exercise-page' options = {{href:null}}/>
-      <Tabs.Screen name = 'counting-page' options = {{href:null}}/>
+      
     </Tabs>
   );
 }

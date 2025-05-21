@@ -6,7 +6,9 @@ const Calendar = () => {
   const date = new Date();
   let day = date.getDate();
  let [currentMonth, setCurrentMonth] = useState(date.getMonth()); 
+ let monthIndex= date.getMonth(); 
   let year = date.getFullYear();
+  
   
  
   const months = [
@@ -58,7 +60,7 @@ const Calendar = () => {
       <View style={styles.calendarContainer}>
         {daysInMonth.map((d, index) => (
           <View key={index} style={styles.day}>
-            <Text style={d === day ? styles.today : styles.dayText}>{d}</Text>
+            <Text style={d === day && currentMonth === monthIndex ? styles.today : styles.dayText}>{d}</Text>
           </View>
         ))}
       </View>
@@ -130,13 +132,13 @@ const styles = StyleSheet.create({
     marginTop: 7,
   },
   img:{
-    height: 35,
-    width: 35,
+    height: 30,
+    width: 30,
     transform: 'rotate(180deg)',
   },
   img1: {
-    height: 35,
-    width: 35,
+    height: 30,
+    width: 30,
   },
 });
 
