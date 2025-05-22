@@ -1,4 +1,4 @@
-name: Build Expo App
+name: Test Expo Android Build
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
         node-version: 18
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
-    - name: Run Expo build for Android
-      run: npx eas build --platform android --non-interactive
+    - name: Run EAS build (development)
+      run: npx eas build --platform android --profile development --non-interactive

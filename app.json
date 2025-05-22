@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "GymApp2.0",
-    "slug": "GymApp2.0",
+    "name": "GymApp2",
+    "slug": "GymApp2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -12,6 +12,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.boman.gymapp2",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -37,6 +38,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "7468cf69-e1a3-400d-a5eb-717fd4fa94b9"
+      }
     }
   }
 }
