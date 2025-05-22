@@ -50,7 +50,7 @@ export default StyleSheet.create({
     shadowRadius: 8,
 
     marginTop: 50,
-    minWidth: 350,
+    minWidth: 349,
     
     alignItems: "center",
   },
